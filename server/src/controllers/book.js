@@ -1,4 +1,4 @@
-import { BookModel } from '../models/mongodb/book.js'
+import { BookModel } from '../models/book.js'
 import { validateBook, validateBookUpdate } from '../schemas/book.js'
 export class BookController {
   static async create (req, res) {

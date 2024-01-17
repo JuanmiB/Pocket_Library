@@ -1,0 +1,33 @@
+.modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    -ms-content-zoom-limit-min: '1000';
+}
+.modal-content {
+    background-color: grey;
+              width: 50%;
+              height: 70%;
+              margin: auto;
+              padding: 2rem;
+              margin-top: 5rem;
+              border-radius: 5px;
+}
+.addBook-btn{
+    background-color: #485725;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #fff;
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+}
+.addBook-btn:hover{
+    background-color: #fff;
+    color: #485725;
+    box-shadow: 0 0 10px #485725;
+}

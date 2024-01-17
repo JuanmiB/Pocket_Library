@@ -2,6 +2,7 @@
   "name": "mern_library",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "dependencies": {
     "bcrypt": "5.1.1",
@@ -18,7 +19,8 @@
     "extends": "standard"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/src/server.js"
   },
   "author": "Juan Miguel Bogado",
   "license": "ISC"
