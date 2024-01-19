@@ -5,15 +5,15 @@ import { Header } from './layout/Header.jsx';
 
 
 function App() {
-    return (
-      <BrowserRouter>
+  return (
+    <BrowserRouter>
       <Header />
-        <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/book/:id" element={<BookItem />} />
-            </Routes>
-            </BrowserRouter>
-    
-    )
-  };
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/book/:id" element={<BookItem />} />
+      </Routes>
+    </BrowserRouter>
+
+  )
+};
 export default App;

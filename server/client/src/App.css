@@ -10,25 +10,6 @@ body{
     height: 100vh;
 
 }
-.app-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-}
-.books-section{
-    background-color: #485725;
-    color: #fff;
-    padding: 20px;
-    margin: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #fff;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 10px;
-    width: 50%;
-    height: auto;
-}
 
 .book-card{
     display: flex;

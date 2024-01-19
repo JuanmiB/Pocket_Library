@@ -4,9 +4,10 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
+
 const ITEM_HEIGHT = 24;
 
-export default function LongMenu({bookId, onDelete, onEdit}) {
+export default function LongMenu({bookId, onDelete, changeEdit, bookState}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -34,27 +35,10 @@ export default function LongMenu({bookId, onDelete, onEdit}) {
       console.error('Error al eliminar el objeto:', error);
     }
   };
-
-  const handleEdit = async () => {
-    try {
-      // Hacer la solicitud para eliminar el objeto con el ID proporcionado usando fetch
-      await fetch(`http://localhost:3000/api/v8/books/${bookId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      // Llamar a la función onDelete para notificar al componente padre sobre la eliminación
-      onEdit(bookId);
-
-      // Cerrar el menú después de la eliminación
-      handleClose();
-    }
-    catch (error) {
-      console.error('Error al eliminar el objeto:', error);
-    }
-  };
+const onChange = () => {
+  changeEdit(!bookState)
+}
+  
 
   return (
     <div>
@@ -84,13 +68,21 @@ export default function LongMenu({bookId, onDelete, onEdit}) {
           },
         }}
       >
-        {/* {options.map((option) => (
-          <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
-            {option}
-          </MenuItem>
-        ))} */}
-         <MenuItem onClick={handleDelete}>Delete 🗑️</MenuItem>
-         <MenuItem onClick={handleEdit}>u 🗑️</MenuItem>
+         <MenuItem 
+         onClick={handleDelete}
+        sx={{
+          '&:hover': {
+            backgroundColor: '#485725',
+            color: '#fff',
+          }}}> Delete 🗑️ </MenuItem>
+         <MenuItem 
+         onClick={onChange}
+         sx={{
+          '&:hover': {
+            backgroundColor: '#485725',
+            color: '#fff',
+          }}}
+         >Update 📝</MenuItem>
       </Menu>
     </div>
   );

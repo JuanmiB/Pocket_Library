@@ -55,8 +55,8 @@ export class BookController {
     }
     const { id } = req.params
 
-    const updateUser = await BookModel.update({ id, input: result.data })
-    if (!updateUser) {
+    const updateBook = await BookModel.update({ id, input: result.data })
+    if (!updateBook) {
       return res.status(404).json({
         success: false,
         errors: [
@@ -67,7 +67,7 @@ export class BookController {
         ]
       })
     }
-    return res.json(updateUser)
+    return res.json(updateBook)
   }
 
   static async delete (req, res) {

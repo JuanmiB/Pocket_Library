@@ -2,35 +2,74 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import "./BookCard.css";
 import LongMenu from './materialUi/LongMenu';
-export default function BookCard({ book , onDelete}) {
-    const [isEditing, setIsEditing] = useState(false)
-    const [title, setTitle] = useState(book.title)
-    const [author, setAuthor] = useState(book.author)
+import CardBookLayout from "../layout/CardBookLayout";
 
-   
-const onEdit= () => {
-    setIsEditing(!isEditing)
-}
+export default function BookCard({ book, onDelete }) {
+    const [isEditing, setIsEditing] = useState(false)
+    // Esto se puede unifica en un solo estado
+    const [bookInfo, setBookInfo] = useState({
+        title: book.title,
+        author: book.author
+    })
+    const updateBook = async () => {
+        try {
+            await fetch(`http://localhost:3000/api/v8/books/${book._id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(bookInfo),
+            });
+        } catch (error) {
+            console.error('Error al actualizar el objeto:', error);
+        }
+    }
 
     return (
-        <div className='book-card'>
+        <CardBookLayout>
             <div className="long-menu">
-            <LongMenu bookId={book._id} onDelete={onDelete} onChange={onEdit}/>
+                <LongMenu bookId={book._id} onDelete={onDelete} changeEdit={setIsEditing} bookState={isEditing} />
             </div>
-                {isEditing ? (
-                    <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-                ) : (
-                    <h2>{title}</h2>
-                )}
-                {isEditing ? (
-                    <input type="text" value={author} onChange={(e) => setAuthor(e.target.value)} />
-                ) : (
-                    <h3>{author}</h3>
-                )    
-                }
-                    <Link to={`/book/${book._id}`}>
+
+            {isEditing ? (
+                <div className="book-input">
+                    <input 
+                    type="text" 
+                    value={bookInfo.title} 
+                    onChange={(e) => setBookInfo((prev) => {
+                        return{  
+                            ...prev,
+                            title: e.target.value
+                        }
+                    })} 
+                    />  
+                            <input type="text" value={bookInfo.author} onChange={(e) => setBookInfo((prev) => {
+                        return{  
+                            ...prev,
+                            author: e.target.value
+                        }
+                    })} 
+                    /> 
+                    <button
+                    onClick={() => {
+                        setIsEditing(false)
+                        // Aquí se debe hacer la solicitud para actualizar el libro
+                        updateBook()
+                    }
+                    }
+                    >Save info</button>
+                </div>) : (
+                <>
+                    <h2>{book.title}</h2>
+                    <h3>{book.author}</h3>
+                </>
+            )
+            }
+
+
+            <Link to={`/book/${book._id}`}>
                 <button>Ver detalles</button>
-                </Link>
-        </div>
+            </Link>
+        </CardBookLayout>
     )
 }

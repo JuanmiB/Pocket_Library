@@ -1,4 +1,4 @@
-import { MongoClient, ServerApiVersion } from 'mongodb'
+import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb'
 
 const uri = 'mongodb+srv://juanmi_b:Ps2dIPJydMlbRPxx@cluster0.2tsjmfk.mongodb.net/firstDB'
 
@@ -36,6 +36,36 @@ export class BookModel {
     return {
       id: insertedId,
       ...input
+    }
+  }
+
+  // static async update ({ id, input }) {
+  //   const db = await connect()
+  //   const { value } = await db.findOneAndUpdate(
+  //     { _id: id },
+  //     { $set: input },
+  //     { returnOriginal: false }
+  //   )
+
+  //   return value
+  // }
+  static async update ({ id, input }) {
+    const objectId = new ObjectId(id)
+    try {
+      await client.connect()
+      const database = client.db('Library')
+      const result = await database.collection('books').findOneAndUpdate(
+        { _id: objectId },
+        { $set: input },
+        { returnDocument: 'after' }
+        // Cambiado de 'returnNewDocument' a 'returnDocument'
+      )
+      console.log('Result:', result)
+      if (!result) return false // Si no encuentra el id, result es false
+      return result
+    } catch (error) {
+      console.error('Error al actualizar el documento:', error)
+      return false
     }
   }
 }

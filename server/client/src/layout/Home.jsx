@@ -1,17 +1,13 @@
 import { Header } from '../layout/Header'
-import BookCard  from '../components/BookCard'
+import BookCard from '../components/BookCard'
 import '../app.css'
 import { useState, useEffect } from 'react'
 import SpringModal from '../components/materialUi/SpringModal'
+import AppLayout from './AppLayout.jsx'
+import BookSection from './BookSection.jsx'
 
 const Home = () => {
-  const [books, setBooks] = useState([{
-    title: '',
-    author: '',
-    description: '',
-    _id: '231'
-
-  }])
+  const [books, setBooks] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   useEffect(() => {
@@ -33,17 +29,19 @@ const Home = () => {
 
   return (
     <>
-        <div className='app-container'>
-        <SpringModal/>
-        <section className='books-section'>
-         {
-           books.map((book, index) => (
-             <BookCard key={index} book={book} onDelete={handleDelete} />
-             ))
+      <AppLayout>
+        <SpringModal />
+        <BookSection>
+          {
+            books.map((book, index) => (
+              <BookCard key={index} book={book} onDelete={handleDelete} />
+            ))
           }
-        </section>
-            </div>
-    </>
-  )}
+        </BookSection>
+      </AppLayout>
 
-  export default Home
+    </>
+  )
+}
+
+export default Home
