@@ -39,16 +39,14 @@ export class BookModel {
     }
   }
 
-  // static async update ({ id, input }) {
-  //   const db = await connect()
-  //   const { value } = await db.findOneAndUpdate(
-  //     { _id: id },
-  //     { $set: input },
-  //     { returnOriginal: false }
-  //   )
+  static async delete ({ id }) {
+    const db = await connect()
+    const objectId = new ObjectId(id)
+    const result = await db.deleteOne({ _id: objectId })
+    if (result.deletedCount === 0) return false
+    return true
+  }
 
-  //   return value
-  // }
   static async update ({ id, input }) {
     const objectId = new ObjectId(id)
     try {

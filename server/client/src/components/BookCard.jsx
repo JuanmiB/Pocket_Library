@@ -4,7 +4,7 @@ import "./BookCard.css";
 import LongMenu from './materialUi/LongMenu';
 import CardBookLayout from "../layout/CardBookLayout";
 
-export default function BookCard({ book, onDelete }) {
+export default function BookCard({ book, onDelete, onBookUpdate }) {
     const [isEditing, setIsEditing] = useState(false)
     // Esto se puede unifica en un solo estado
     const [bookInfo, setBookInfo] = useState({
@@ -19,7 +19,9 @@ export default function BookCard({ book, onDelete }) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(bookInfo),
+                
             });
+            onBookUpdate();
         } catch (error) {
             console.error('Error al actualizar el objeto:', error);
         }

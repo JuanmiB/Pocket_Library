@@ -6,6 +6,7 @@ import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import LibroFormulario from '../Formulario'
 import { useSpring, animated } from '@react-spring/web';
+import NewForm from '../NewForm';
 
 const Fade = React.forwardRef(function Fade(props, ref) {
   const {
@@ -60,7 +61,7 @@ const style = {
   p: 4,
 };
 
-export default function SpringModal() {
+export default function SpringModal({ onRefresh }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -108,7 +109,7 @@ export default function SpringModal() {
       >
         <Fade in={open}>
           <Box sx={style}>
-          <LibroFormulario/>
+          <NewForm  refresco={onRefresh}/>
           </Box>
         </Fade>
       </Modal>
